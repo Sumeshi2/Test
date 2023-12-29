@@ -63,8 +63,7 @@ let y4 = 0;
 let time = 0;
 
 function draw(event) {
-  let flag = event == null ? true : event.buttons === 1;
-  if (flag) {
+  if (event.buttons === 1) {
     if (time === 0) {
       x1 = event.offsetX;
       y1 = event.offsetY;
@@ -102,14 +101,6 @@ canvas.addEventListener("mouseup", event => {
 });
 
 canvas.addEventListener("mouseout", event => {
-  time = 0;
-});
-
-canvas.addEventListener("touchmove", event => {
-  draw(null);
-});
-
-canvas.addEventListener("touchend", event => {
   time = 0;
 });
 
