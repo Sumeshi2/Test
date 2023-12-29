@@ -62,12 +62,9 @@ let x4 = 0;
 let y4 = 0;
 let time = 0;
 
-canvas.addEventListener("mousemove", event => {
-  if (event.buttons === 0) {
-    if (time > 0) {
-      time = 0;
-    }
-  } else if (event.buttons === 1) {
+function draw(event) {
+  let flag = event == null ? true : event.buttons === 1;
+  if (flag) {
     if (time === 0) {
       x1 = event.offsetX;
       y1 = event.offsetY;
@@ -81,8 +78,8 @@ canvas.addEventListener("mousemove", event => {
       if (time % 2 === 0) {
         x1 = event.offsetX;
         y1 = event.offsetY;
-        x4 = event.offsetX;
-        y4 = event.offsetY;
+        x4 = x1;
+        y4 = y1;
         line(x3, y3, x4, y4, 0, 5, 255, 255, 255, 255);
       } else {
         x2 = event.offsetX;
@@ -94,12 +91,28 @@ canvas.addEventListener("mousemove", event => {
     }
     ++time;
   }
+}
+
+canvas.addEventListener("mousemove", event => {
+  draw(event);
+});
+
+canvas.addEventListener("mouseup", event => {
+  time = 0;
 });
 
 canvas.addEventListener("mouseout", event => {
   time = 0;
 });
 
+canvas.addEventListener("touchmove", event => {
+  draw(null);
+});
+
+canvas.addEventListener("touchend", event => {
+  time = 0;
+});
+
 setInterval(() => {
   update();
-}, 1000 / 30);
+}, 1000 / 60);
